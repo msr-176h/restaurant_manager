@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% if successes %}
+    {% for s in successes %}
+        <div class="alert alert-success" role="alert">{{ s }}</div>
+    {% endfor %}
+{% endif %}
+
+{% if errors %}
+    {% for e in errors %}
+        <div class="alert alert-danger" role="alert">{{ e }}</div>
+    {% endfor %}
+{% endif %}
+
+<div class="col-md6 col-md-offset-3">
+  <h1>STORE REGISTRATION</h1>
+  <form action="/register_store" method="post" class="form-horizontal">
+    <div class="form-group">
+
+      <label for="store_name" class="col-md-2 control-label">STORE NAME*</label>
+      <div class="col-md-10">
+        <input type="text" class=form-control" id="store_name" name="store_name" placeholder="Store Name" /><br>
+      </div>
+
+      <label for="tel" class="col-md-2 control-label">TEL</label>
+      <div class="col-md-10">
+        <input type="text" class=form-control" id="tel" name="tel" placeholder="TEL" /><br>
+      </div>
+
+      <label for="url" class="col-md-2 control-label">LINKS</label>
+      <div class="col-md-10">
+        <input type="text" class=form-control" id="url" name="url" placeholder="URL" />
+        <input type="text" class=form-control" id="url_note" name="url_note" placeholder="Note for URL" /><br>
+      </div>
+
+      <label for="tag1" class="col-md-2 control-label">TAGS</label>
+      <div class="col-md-10">
+        <input type="text" class=form-control" id="tag1" name="tag1" placeholder="Tag" /><br>
+        <input type="text" class=form-control" id="tag2" name="tag2" placeholder="Tag" /><br>
+        <input type="text" class=form-control" id="tag3" name="tag3" placeholder="Tag" /><br>
+      </div>
+
+
+      <label for="address" class="col-md-2 control-label">ADDRESS</label>
+      <div class="col-md-10">
+        <input type="text" class=form-control" id="address" name="address" placeholder="Address" /><br>
+      </div>
+
+      <label for="note" class="col-md-2 control-label">NOTE</label>
+      <div class="col-md-10">
+        <input type="text" class=form-control" id="note" name="note" placeholder="Note" /><br>
+      </div>
+
+    </div>
+
+  
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <input type="submit" class="btn" value="Submit">
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

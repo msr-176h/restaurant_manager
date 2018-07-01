@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Overview</h1>
+<h2>TBD</h2>
+
+<h1>Details</h1>
+<h2>File Information</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>index</th>
+                <th>ELEM</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in file_info %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ i }}</td>
+            </tr>
+            {% else %}
+                <td>There is no information.</td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<h2>Generated Files</h2>
+TBD
+
+<h2>Referred Files</h2>
+TBD
+
+<h2>Networks</h2>
+TBD
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>index</th>
+                <th>URL/IP address</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for network in networks %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ network.dst }}</td>
+                <td>{{ network.num }}</td>
+            </tr>
+            {% else %}
+                <td>There is no information.</td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<h2>Syscalls</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>index</th>
+                <th>SYSCALL</th>
+                <th>TIMESTAMP</th>
+                <th>ARG1</th>
+                <th>ARG2</th>
+                <th>ARG3</th>
+                <th>ARG4</th>
+                <th>ARG5</th>
+                <th>ARG6</th>
+                <th>RETURN</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for syscall in syscalls %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ syscall.syscall }}</td>
+                <td>{{ syscall.timestamp}}</td>
+                <td>{{ syscall.arg1 }}</td>
+                <td>{{ syscall.arg2 }}</td>
+                <td>{{ syscall.arg3 }}</td>
+                <td>{{ syscall.arg4 }}</td>
+                <td>{{ syscall.arg5 }}</td>
+                <td>{{ syscall.arg6 }}</td>
+                <td>{{ syscall.return}}</td>
+            </tr>
+            {% else %}
+                <td>There is no information.</td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

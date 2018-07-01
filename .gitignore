@@ -1,0 +1,6 @@
+configs.py
+__pycache__
+*.pyc
+*.pyo
+*.old
+static/map_htmls

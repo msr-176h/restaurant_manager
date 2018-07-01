@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% if successes %}
+    {% for s in successes %}
+        <div class="alert alert-success" role="alert">{{ s }}</div>
+    {% endfor %}
+{% endif %}
+
+{% if errors %}
+    {% for e in errors %}
+        <div class="alert alert-danger" role="alert">{{ e }}</div>
+    {% endfor %}
+{% endif %}
+
+<div class="row">
+  <div class="col-md6 col-md-offset-3">
+    <h1>STORE MODIFICATION</h1>
+    <form action="/modify_store/{{ store_info._id }}" method="post" class="form-horizontal">
+      <div class="form-group">
+
+        <label for="store_name" class="col-md-2 control-label">STORE NAME*</label>
+        <div class="col-md-10">
+          <input type="text" class=form-control" id="store_name" name="store_name" value="{{store_info.store_name}}" placeholder="Store Name" /><br>
+        </div>
+
+        <label for="tel" class="col-md-2 control-label">TEL</label>
+        <div class="col-md-10">
+          <input type="text" class=form-control" id="tel" name="tel" value="{{store_info["tel"]}}" placeholder="TEL" /><br>
+        </div>
+
+        <label for="url" class="col-md-2 control-label">LINKS</label>
+        <div class="col-md-10">
+          <input type="text" class=form-control" id="url" name="url" value="{{store_info["links"][0]["url"]}}" placeholder="URL" />
+          <input type="text" class=form-control" id="url_note" name="url_note" value="{{store_info["links"][0]["url_note"]}}" placeholder="Note for URL" /><br>
+        </div>
+
+        <label for="tag1" class="col-md-2 control-label">TAGS</label>
+        <div class="col-md-10">
+          <input type="text" class=form-control" id="tag1" name="tag1" value="{{store_info["tags"][0]}}" placeholder="Tag" /><br>
+          <input type="text" class=form-control" id="tag2" name="tag2" value="{{store_info["tags"][1]}}" placeholder="Tag" /><br>
+          <input type="text" class=form-control" id="tag3" name="tag3" value="{{store_info["tags"][2]}}" placeholder="Tag" /><br>
+        </div>
+
+
+        <label for="address" class="col-md-2 control-label">ADDRESS</label>
+        <div class="col-md-10">
+          <input type="text" class=form-control" id="address" name="address" value="{{store_info["map"]["address"]}}" placeholder="Address" /><br>
+        </div>
+        <label for="latitude" class="col-md-2 control-label">LATITUDE</label>
+        <div class="col-md-10">
+          <input type="text" class=form-control" id="latitude" name="latitude" value="{{store_info["map"]["latitude"]}}" readonly placeholder="Latitude" /><br>
+        </div>
+        <label for="longitude" class="col-md-2 control-label">LONGITUDE</label>
+        <div class="col-md-10">
+          <input type="text" class=form-control" id="longitude" name="longitude" value="{{store_info["map"]["longitude"]}}" readonly placeholder="Longitude" /><br>
+        </div>
+
+        <label for="note" class="col-md-2 control-label">NOTE</label>
+        <div class="col-md-10">
+          <input type="text" class=form-control" id="note" name="note" value="{{store_info["note"]}}" placeholder="Note" /><br>
+        </div>
+
+      </div>
+
+    
+      <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+          <input type="submit" class="btn" value="Submit">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

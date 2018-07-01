@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% if successes %}
+    {% for s in successes %}
+        <div class="alert alert-success" role="alert">{{ s }}</div>
+    {% endfor %}
+{% endif %}
+
+{% if errors %}
+    {% for e in errors %}
+        <div class="alert alert-danger" role="alert">{{ e }}</div>
+    {% endfor %}
+{% endif %}
+
+<h1>STORE LIST</h1>
+<div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopupz="true" aria-expanded="false">
+        sort-by <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="/store_list?sort=registered_date&order=d">registered date (descending order)</a></li>
+        <li><a href="/store_list?sort=registered_date&order=a">registered date (ascending order)</a></li>
+        <li><a href="/store_list?sort=last_visited&order=d">last visited (descending order)</a></li>
+        <li><a href="/store_list?sort=last_visited&order=a">last visited (ascending order)</a></li>
+        <li><a href="/store_list?sort=evaluation.average&order=d">average score (descending order)</a></li>
+        <li><a href="/store_list?sort=evaluation.average&order=a">average score (ascending order)</a></li>
+        <li><a href="/store_list?sort=average_fee&order=d">average fee (descending order)</a></li>
+        <li><a href="/store_list?sort=average_fee&order=a">average fee (ascending order)</a></li>
+    </ul>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>STORE NAME</th>
+                <th>AVERAGE SCORE</th>
+                <th>AVERAGE FEE</th>
+                <th>REGISTERED DATE</th>
+                <th>LAST VISITED</th>
+                <th>Tags</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in store_list %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td><a href="/store_detail/{{s._id}}">{{ s.store_name }}</a></td>
+                <td>{{ s.evaluation["average"] }}</td>
+                <td>{{ s.average_fee }}</td>
+                <td>{{ s.registered_date}}</td>
+                <td>{{ s.last_visited }}</td>
+                <td>
+                  {% for tag in s.tags %}
+                     <span class="label label-default">{{ tag }}</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    <input type="button" class="btn btn-xs" value="delete" onClick="location.href='/delete_store/{{ s._id }}'">
+                    <input type="button" class="btn btn-xs" value="modify" onClick="location.href='/modify_store/{{ s._id }}'">
+                    <input type="button" class="btn btn-xs" value="evaluate" onClick="location.href='/evaluate_store/{{ s._id }}'">
+                </td>
+            </tr>
+            {% else %}
+                <td>There is no restaurant information.</td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

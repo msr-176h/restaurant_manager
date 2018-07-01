@@ -1,0 +1,19 @@
+"""
+confoig file.
+"""
+
+# DB's information
+DB_ADDRESS = 'localhost'
+DB_PORT = 27017
+DB_NAME = 'store_management'
+COL_NAME_STORE = 'stores'
+
+# authentication information
+SECRET_KEY = 'secret key of digest auth'
+USERS = {
+    "admin": "admin",
+    "testid": "testpass"
+}
+
+# Map information
+MAP_DIR = 'static/map_htmls/'

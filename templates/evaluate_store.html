@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% if successes %}
+    {% for s in successes %}
+        <div class="alert alert-success" role="alert">{{ s }}</div>
+    {% endfor %}
+{% endif %}
+
+{% if errors %}
+    {% for e in errors %}
+        <div class="alert alert-danger" role="alert">{{ e }}</div>
+    {% endfor %}
+{% endif %}
+
+<div class="row">
+  <div class="col-md6 col-md-offset-3">
+    <h1>STORE EVALUATION</h1>
+    
+    <h2>STORE INFORMATION</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tbody>
+                {% if store_info %}
+                  <tr>
+                      <td>STORE NAME</td>
+                      <td>{{ store_info.store_name }}</td>
+                  </tr>
+                  <tr>
+                      <td>TEL</td>
+                      <td>{{ store_info.tel }}</td>
+                  </tr>
+                  <tr>
+                      <td>REGISTERED DATE</td>
+                      <td>{{ store_info.registered_date }}</td>
+                  </tr>
+                  <tr>
+                      <td>AVERAGE SCORE</td>
+                      <td>{{ store_info.evaluation["average"] }}</td>
+                  </tr>
+                  <tr>
+                      <td>AVERAGE FEE</td>
+                      <td>{{ store_info.average_fee }}</td>
+                  </tr>
+                  <tr>
+                      <td>ADDRESS</td>
+                      <td>{{ store_info.map["address"] }}</td>
+                  </tr>
+                  <tr>
+                      <td>LINKS</td>
+                      {% if store_info["links"][0]["url_note"] == "" %}
+                        <td><a href="{{store_info["links"][0]["url"]}}" target="_blank">{{store_info["links"][0]["url"]}}</a></td>
+                      {% else %}
+                        <td><a href="{{store_info["links"][0]["url"]}}" target="_blank">{{store_info["links"][0]["url_note"]}}</a></td>
+                      {% endif %}
+                  </tr>
+                  <tr>
+                      <td>TAGS</td>
+                      <td>
+                        {% for tag in store_info.tags %}
+                          <span class="label label-default">{{ tag }}</span>
+                        {% endfor %}
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>NOTE</td>
+                      <td>{{ store_info.note }}</td>
+                  </tr>
+                {% else %}
+                    <td>There is no restaurant information.</td>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2>EVALUATION</h2>
+    <form action="/evaluate_store/{{ store_info._id }}" method="post" class="form-horizontal">
+      <div class="form-group">
+
+        <label for="user" class="col-md-2 control-label">USER*</label>
+        <div class="col-md-10">
+          <input type="text" class=form-control" id="user" name="user" readonly value="{{ user }}" /><br>
+        </div>
+
+        <label for="visited_date" class="col-md-2 control-label">VISITED DATE*</label>
+        <div class="col-md-10">
+          <input type="text" class=form-control" id="visited_date" name="visited_date" value="{{ date }}" /><br>
+        </div>
+
+        <label for="score" class="col-md-2 control-label">SCORE*</label>
+        <div class="col-md-10">
+          <select class=form-control" id="score" name="score">
+            <option>0.0</option>
+            <option>0.5</option>
+            <option>1.0</option>
+            <option>1.5</option>
+            <option>2.0</option>
+            <option>2.5</option>
+            <option>3.0</option>
+            <option>3.5</option>
+            <option>4.0</option>
+            <option>4.5</option>
+            <option>5.0</option>
+          </select>
+        </div>
+
+        <label for="fee" class="col-md-2 control-label">FEE*</label>
+        <div class="col-md-10">
+          <input type="text" class=form-control" id="fee" name="fee" placeholder="fee (yen)" /><br>
+        </div>
+
+        <label for="note" class="col-md-2 control-label">NOTE</label>
+        <div class="col-md-10">
+          <input type="text" class=form-control" id="note" name="note" placeholder="Note" /><br>
+        </div>
+
+      </div>
+
+    
+      <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+          <input type="submit" class="btn" value="Submit">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

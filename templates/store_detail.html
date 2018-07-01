@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<button type="button" onclick="history.back()" class="btn">❮ Back</button>
+
+{% if successes %}
+    {% for s in successes %}
+        <div class="alert alert-success" role="alert">{{ s }}</div>
+    {% endfor %}
+{% endif %}
+
+{% if errors %}
+    {% for e in errors %}
+        <div class="alert alert-danger" role="alert">{{ e }}</div>
+    {% endfor %}
+{% endif %}
+
+<h1>STORE INFORMATION</h1>
+<h2>SUMMARY</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tbody>
+            {% if store_info %}
+              <tr>
+                  <td>STORE NAME</td>
+                  <td>{{ store_info.store_name }}</td>
+              </tr>
+              <tr>
+                  <td>TEL</td>
+                  <td>{{ store_info.tel }}</td>
+              </tr>
+              <tr>
+                  <td>REGISTERED DATE</td>
+                  <td>{{ store_info.registered_date }}</td>
+              </tr>
+              <tr>
+                  <td>AVERAGE SCORE</td>
+                  <td>{{ store_info.evaluation["average"] }}</td>
+              </tr>
+              <tr>
+                  <td>AVERAGE FEE</td>
+                  <td>{{ store_info.average_fee }}</td>
+              </tr>
+              <tr>
+                  <td>ADDRESS</td>
+                  <td>{{ store_info.map["address"] }}</td>
+              </tr>
+              <tr>
+                  <td>LINKS</td>
+                  {% if store_info["links"][0]["url_note"] == "" %}
+                    <td><a href="{{store_info["links"][0]["url"]}}" target="_blank">{{store_info["links"][0]["url"]}}</a></td>
+                  {% else %}
+                    <td><a href="{{store_info["links"][0]["url"]}}" target="_blank">{{store_info["links"][0]["url_note"]}}</a></td>
+                  {% endif %}
+              </tr>
+              <tr>
+                  <td>TAGS</td>
+                  <td>
+                    {% for tag in store_info.tags %}
+                      <span class="label label-default">{{ tag }}</span>
+                    {% endfor %}
+                  </td>
+              </tr>
+              <tr>
+                  <td>NOTE</td>
+                  <td>{{ store_info.note }}</td>
+              </tr>
+            {% else %}
+                <td>There is no restaurant information.</td>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+<h2>MAP</h2>
+{% if store_info["map"]["save_dir"] == "" %}
+    <p>There is no map information.</p>
+{% else %}
+    <iframe src="/{{ store_info["map"]["save_dir"] }}" width="100%" height="480"></iframe>
+{% endif %}
+
+<h2>EVALUATIONS</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>USER</th>
+                <th>SCORE</th>
+                <th>VISITED DATE</th>
+                <th>NOTE</th>
+                <th>OPERATION</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in store_info["evaluation"]["evaluations"] %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ e.user }}</td>
+                <td>{{ e.score }}</td>
+                <td>{{ e.visited_date }}</td>
+                <td>{{ e.note }}</td>
+                <td>
+                  <input type="button" class="btn btn-xs" value="modify" onClick="location.href='/modify_eval/{{store_info._id}}/{{loop.index0}}'">
+                  <input type="button" class="btn btn-xs" value="delete" onClick="location.href='/delete_eval/{{store_info._id}}/{{loop.index0}}'">
+                </td>
+
+            </tr>
+            {% else %}
+                <td>There is no evaluation.</td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
